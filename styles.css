@@ -1,0 +1,75 @@
+:root {
+   --primary-color: #8350f2;
+ }
+
+#app {
+   font-family: Poppins, sans-serif;
+}
+
+@media (max-width: 900px) {
+   .container {
+      width: 95%;
+   }
+}
+
+@media (max-width: 1000px) {
+   header {
+      flex-direction: column;
+   }
+}
+
+main {
+   min-height: calc(100dvh - 100px);
+}
+
+.container {
+   max-width: 800px;
+   padding: 0px;
+}
+
+.navbar > a {
+   border-color: white transparent;
+   background-color: white;
+}
+
+.navbar > a:hover {
+   border-color: var(--primary-color);
+}
+
+.active-btn {
+   background-color: var(--primary-color) !important;
+   border-color: var(--primary-color) !important;
+   color: white !important;
+}
+
+.card {
+   border: 0px;
+   background-color: #F1F1F1;
+}
+
+.logo {
+   height: 100px;
+}
+
+.form-select {
+   max-width: 330px
+}
+
+.form-control {
+   max-width: 430px;
+}
+
+.btn {
+   background-color: var(--primary-color);
+   border-color: var(--primary-color);
+}
+
+.error-message {
+   margin: 32px;
+   padding: 0px;
+   color: #212529;
+   max-height: 330px;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   word-wrap: break-word;
+}

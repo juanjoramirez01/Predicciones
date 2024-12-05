@@ -1,0 +1,122 @@
+{   
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+        "title": "Cáncer de Cérvix",
+        "type": "object",
+        "properties": {
+            "Edad": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9999
+            },
+            "Nivel educativo": {
+                "type": "string",
+                "enum": [
+                    "Primaria Completa",
+                    "Primaria incompleta",
+                    "Secundaria completa",
+                    "Secundaria incompleta",
+                    "Universitario",
+                    "Posgrado"
+                ]
+            },
+            "Estado civil": {
+                "type": "string",
+                "enum": [
+                    "Soltera",
+                    "Casada",
+                    "Unión Libre",
+                    "Viuda",
+                    "Otro"
+                ]
+            },
+            "¿Fuma actualmente?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            },
+            "¿Actualmente usa anticonceptivos orales?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            },
+            "Edad del primer contacto sexual en años": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99
+            },
+            "Número de parejas sexuales a lo largo de la vida": {
+                "type": "string",
+                "enum": [
+                    "Entre 1 a 5",
+                    "Entre 6 a 10",
+                    "Entre 11 a 20",
+                    "Mas de 20 parejas"
+                ]
+            },
+            "Ha sufrido alguna enfermedad de transmisión sexual": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            },
+            "En los últimos 5 años ha realizado una prueba VPH": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            }
+        },
+        "required": [
+            "Edad",
+            "Nivel educativo",
+            "Estado civil",
+            "¿Fuma actualmente?",
+            "¿Actualmente usa anticonceptivos orales?",
+            "Edad del primer contacto sexual en años",
+            "Número de parejas sexuales a lo largo de la vida",
+            "Ha sufrido alguna enfermedad de transmisión sexual",
+            "En los últimos 5 años ha realizado una prueba VPH"
+        ],
+        "allOf": [
+            {
+                
+                "if": {
+                    "properties": {
+                        "En los últimos 5 años ha realizado una prueba VPH": {
+                            "const": "Si"
+                        }
+                    },
+                    "required": ["En los últimos 5 años ha realizado una prueba VPH"]
+                },
+                "then": {
+                    "properties": {
+                        "¿Cuál fue el resultado de la prueba VPH?": {
+                            "type": "string",
+                            "enum": [
+                                "Positiva",
+                                "Negativa",
+                                "No sabe"
+                            ]
+                        }
+                    },
+                    "required": ["¿Cuál fue el resultado de la prueba VPH?"]
+                },
+                "else": {
+                    "properties": {
+                        "¿Cuál fue el resultado de la prueba VPH?": {
+                            "type": "null"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

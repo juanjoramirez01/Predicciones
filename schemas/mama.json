@@ -1,0 +1,269 @@
+{   
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+        "items": {
+        "title": "Cáncer de Mama",
+        "type": "object",
+        "properties": {
+            "¿A qué edad tuviste tu primer período menstrual?": {
+                "type": "string",
+                "enum": [
+                    "7 a 11",
+                    "12 a 13",
+                    "14 o más"
+                ]
+            },
+            "¿Tienes hijos?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            },
+            "¿Te han realizado alguna vez una biopsia de mama?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            },
+            "¿Tiene antecedentes de cáncer de mama, carcinoma ductual in situ o carcinoma lobulillar in situ?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No",
+                    "No estoy segura"
+                ]
+            },
+            "¿Te han realizado alguna prueba genética para diagnóstico temprano de cáncer de mama?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No",
+                    "No estoy segura"
+                ]
+            },
+            "¿Te han diagnosticado linfoma de Hodgkin?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No",
+                    "No estoy segura"
+                ]
+            },
+            "¿Has tenido familiares mujeres en primer grado (madre, hermanas, hijas) a quienes se les haya diagnosticado cáncer de mama?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            }
+        },
+        "required": [
+            "¿A qué edad tuviste tu primer período menstrual?",
+            "¿Tienes hijos?",
+            "¿Te han realizado alguna vez una biopsia de mama?",
+            "¿Tiene antecedentes de cáncer de mama, carcinoma ductual in situ o carcinoma lobulillar in situ?",
+            "¿Te han realizado alguna prueba genética para diagnóstico temprano de cáncer de mama?",
+            "¿Te han diagnosticado linfoma de Hodgkin?",
+            "¿Has tenido familiares mujeres en primer grado (madre, hermanas, hijas) a quienes se les haya diagnosticado cáncer de mama?"
+        ],
+        "allOf": [
+            {
+                "if": {
+                    "properties": {
+                        "¿Tienes hijos?": {
+                            "const": "Si"
+                        }
+                    }
+                },
+                "then": {
+                    "properties": {
+                        "¿Cuántos años tenías cuando tuviste tu primer hijo?": {
+                            "type": "string",
+                            "enum": [
+                                "Menos de 20",
+                                "20 - 24",
+                                "25 - 29",
+                                "30 o más"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "¿Cuántos años tenías cuando tuviste tu primer hijo?"
+                    ]
+                },
+                "else": {
+                    "properties": {
+                        "¿Cuántos años tenías cuando tuviste tu primer hijo?": {
+                            "type": "null"
+                        }
+                    }
+                }
+            },
+            {
+                "if": {
+                    "properties": {
+                        "¿Te han realizado alguna vez una biopsia de mama?": {
+                            "const": "Si"
+                        }
+                    }
+                },
+                "then": {
+                    "properties": {
+                        "¿Cuántas veces te has realizado una biopsia?": {
+                            "type": "string",
+                            "enum": [
+                                "1 vez",
+                                "2 o mas veces"
+                            ]
+                        },
+                        "¿Se detectó un crecimiento anormal de las células en la biopsia?": {
+                            "type": "string",
+                            "enum": [
+                                "Si",
+                                "No",
+                                "No estoy segura"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "¿Cuántas veces te has realizado una biopsia?",
+                        "¿Se detectó un crecimiento anormal de las células en la biopsia?"
+                    ]
+                },
+                "else": {
+                    "properties": {
+                        "¿Cuántas veces te has realizado una biopsia?": {
+                            "type": "null"
+                        },
+                        "¿Se detectó un crecimiento anormal de las células en la biopsia?": {
+                            "type": "null"
+                        }
+                    }
+                }
+            },
+            {
+                "if": {
+                    "properties": {
+                        "¿Te han realizado alguna prueba genética para diagnóstico temprano de cáncer de mama?": {
+                            "const": "Si"
+                        }
+                    }
+                },
+                "then": {
+                    "properties": {
+                        "¿El examen fue sobre los genes BRCA1 o BRCA2?": {
+                            "type": "string",
+                            "enum": [
+                                "Si",
+                                "No",
+                                "No estoy segura"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "¿El examen fue sobre los genes BRCA1 o BRCA2?"
+                    ],
+                    "if": {
+                        "properties": {
+                            "¿El examen fue sobre los genes BRCA1 o BRCA2?": {
+                                "const": "Si"
+                            }
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "¿Se encontró alguna mutación en estos genes?": {
+                                "type": "string",
+                                "enum": [
+                                    "Si",
+                                    "No",
+                                    "No estoy segura"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "¿Se encontró alguna mutación en estos genes?"
+                        ]
+                    },
+                    "else": {
+                        "properties": {
+                            "¿Se encontró alguna mutación en estos genes?": {
+                                "type": "null"
+                            }
+                        }
+                    }
+                },
+                "else": {
+                    "properties": {
+                        "¿El examen fue sobre los genes BRCA1 o BRCA2?": {
+                            "type": "null"
+                        }
+                    }
+                }
+            },
+            {
+                "if": {
+                    "properties": {
+                        "¿Te han diagnosticado linfoma de Hodgkin?": {
+                            "const": "Si"
+                        }
+                    }
+                },
+                "then": {
+                    "properties": {
+                        "¿Recibiste tratamiento del linfoma de Hodgkin con radioterapia en el tórax?": {
+                            "type": "string",
+                            "enum": [
+                                "Si",
+                                "No",
+                                "No estoy segura"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "¿Recibiste tratamiento del linfoma de Hodgkin con radioterapia en el tórax?"
+                    ]
+                },
+                "else": {
+                    "properties": {
+                        "¿Recibiste tratamiento del linfoma de Hodgkin con radioterapia en el tórax?": {
+                            "type": "null"
+                        }
+                    }
+                }
+            },
+            {
+                "if": {
+                    "properties": {
+                        "¿Has tenido familiares mujeres en primer grado (madre, hermanas, hijas) a quienes se les haya diagnosticado cáncer de mama?": {
+                            "const": "Si"
+                        }
+                    }
+                },
+                "then": {
+                    "properties": {
+                        "¿Cuántos de tus familiares mujeres de primer grado (madre, hermanas, hijas) han tenido cáncer de mama?": {
+                            "type": "string",
+                            "enum": [
+                                "Uno",
+                                "Mas de uno"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "¿Cuántos de tus familiares mujeres de primer grado (madre, hermanas, hijas) han tenido cáncer de mama?"
+                    ]
+                },
+                "else": {
+                    "properties": {
+                        "¿Cuántos de tus familiares mujeres de primer grado (madre, hermanas, hijas) han tenido cáncer de mama?": {
+                            "type": "null"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

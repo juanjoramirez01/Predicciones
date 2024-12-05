@@ -1,0 +1,150 @@
+{   
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+        "title": "Cáncer de Pulmón",
+        "type": "object",
+        "properties": {
+            "Edad": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9999
+            },
+            "Peso": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9999
+            },
+            "Talla": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9999
+            },
+            "Nivel educativo": {
+                "type": "string",
+                "enum": [
+                    "Primaria",
+                    "Secundaria",
+                    "Técnica",
+                    "Tecnología",
+                    "Profesional (en curso)",
+                    "Profesional (graduado)",
+                    "Ninguna"
+                ]
+            },
+            "¿Eres fumador o has fumado en el pasado?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            },
+            "¿Has sido diagnosticado con algún tipo de cáncer?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            },
+            "¿Tienes familiares que hayan sido diagnosticados con cáncer de pulmón?": {
+                "type": "string",
+                "enum": [
+                    "Si",
+                    "No"
+                ]
+            }
+        },
+        "required": [
+            "Edad",
+            "Peso",
+            "Talla",
+            "Nivel educativo",
+            "¿Eres fumador o has fumado en el pasado?",
+            "¿Has sido diagnosticado con algún tipo de cáncer?",
+            "¿Tienes familiares que hayan sido diagnosticados con cáncer de pulmón?"
+        ],
+        "if": {
+            "properties": {
+                "¿Eres fumador o has fumado en el pasado?": {
+                    "const": "Si"
+                }
+            }
+        },
+        "then": {
+            "properties": {
+                "¿Fumas actualmente?": {
+                    "type": "string",
+                    "enum": [
+                        "Si",
+                        "No"
+                    ]
+                },
+                "¿Durante cuántos años fumaste o has fumado?": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 99
+                },
+                "¿Cuántos cigarrillos fumas o fumabas al día, en promedio?": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 99
+                },
+                "¿Has sufrido de enfermedad pulmonar obstructiva crónica (EPOC) o Asfixia?": {
+                    "type": "string",
+                    "enum": [
+                        "Si",
+                        "No"
+                    ]
+                }
+            },
+            "required": [
+                "¿Fumas actualmente?",
+                "¿Durante cuántos años fumaste o has fumado?",
+                "¿Cuántos cigarrillos fumas o fumabas al día, en promedio?",
+                "¿Has sufrido de enfermedad pulmonar obstructiva crónica (EPOC) o Asfixia?"
+            ],
+            "if": {
+                "properties": {
+                    "¿Fumas actualmente?": {
+                        "const": "No"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "¿Hace cuántos años dejaste de fumar?": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99
+                    }
+                },
+                "required": [
+                    "¿Hace cuántos años dejaste de fumar?"
+                ]
+            },
+            "else": {
+                "properties": {
+                    "¿Hace cuántos años dejaste de fumar?": {
+                        "type": "null"
+                    }
+                }
+            }
+        },
+        "else": {
+            "properties": {
+                "¿Fumas actualmente?": {
+                    "type": "null"
+                },
+                "¿Durante cuántos años fumaste o has fumado?": {
+                    "type": "null"
+                },
+                "¿Cuántos cigarrillos fumas o fumabas al día, en promedio?": {
+                    "type": "null"
+                },
+                "¿Has sufrido de enfermedad pulmonar obstructiva crónica (EPOC) o Asfixia?": {
+                    "type": "null"
+                }
+            }
+        }
+    }
+}
