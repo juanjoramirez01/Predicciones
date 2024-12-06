@@ -32,19 +32,13 @@ main {
    background-color: white;
 }
 
-.navbar > a:hover {
-   border-color: var(--primary-color);
-}
-
-.active-btn {
-   background-color: var(--primary-color) !important;
-   border-color: var(--primary-color) !important;
-   color: white !important;
-}
-
 .card {
    border: 0px;
    background-color: #F1F1F1;
+}
+
+.card-header {
+   border-bottom: 0px;
 }
 
 .logo {
@@ -62,6 +56,11 @@ main {
 .btn {
    background-color: var(--primary-color);
    border-color: var(--primary-color);
+   text-decoration: none;
+}
+
+.btn-link {
+   border-color: white transparent;
 }
 
 .error-message {

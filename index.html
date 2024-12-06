@@ -21,114 +21,134 @@
         <div :class="alertClass" v-if="alert.message.length" role="alert">
             {{ alert.message }}
         </div>
-        <div class="navbar shadow rounded-4 bg-light p-2 my-2">
-            <a :class="{'active-btn': activeSection === 'home'}" class="btn rounded-4 m-1" @click="activeSection = 'home'">
-                Inicio
-            </a>
-            <a :class="{'active-btn': activeSection === 'templates'}" class="btn rounded-4 m-1" @click="activeSection = 'templates'">
-                Plantillas
-            </a>
-            <a :class="{'active-btn': activeSection === 'upload'}" class="btn rounded-4 m-1" @click="activeSection = 'upload'">
-                Carga masiva
-            </a>
-        </div>
     </header>
 
-    <main v-if="activeSection === 'home'" class="container">
-    </main>
-
-    <main v-if="activeSection === 'templates'" class="container">
+    <main class="container">
         <div class="container my-5">
             <div class="card shadow rounded-4">
-                <div class="card-body text-center p-4">
-                    <div class="form">
-                        <label for="templateSelect" class="form-label d-block">
-                            <h1 class="fs-4 bg-white m-4 p-2 rounded-4 shadow">
-                                Plantilla del modelo predictivo<i class="bi bi-table fs-4 ms-2"></i>
-                            </h1>
-                        </label>
-                        <select id="templateSelect" class="form-select d-inline-block my-4 mx-auto" v-model="selectedValue">
-                            <option value="" disabled selected>Seleccione una opción</option>
-                            <option v-for="template in templates" :key="template" :value="template">{{ template }}</option>
-                        </select>
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header p-3 p-3" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link w-100 text-left fs-4 bg-white rounded-4 shadow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Plantilla del modelo predictivo<i class="bi bi-table fs-4 ms-2"></i>
+                                </button>
+                            </h2>
+                        </div>
+        
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="card-body text-center p-4">
+                                <div class="form">
+                                    <label for="templateSelect" class="form-label d-block">
+                                    </label>
+                                    <select id="templateSelect" class="form-select d-inline-block my-4 mx-auto" v-model="selectedValue">
+                                        <option value="" disabled selected>Seleccione una opción</option>
+                                        <option v-for="template in templates" :key="template" :value="template">{{ template }}</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-info shadow rounded-4 text-white fs-5 m-4" @click="downloadTemplate">
+                                    Descargar<i class="bi bi-download fs-5 ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-info shadow rounded-4 text-white fs-5 m-4" @click="downloadTemplate">
-                        Descargar<i class="bi bi-download fs-5 ms-1"></i>
-                    </button>
                 </div>
             </div>
         </div>
         
         <div v-show="selectedValue" class="container mb-5">
-
-            <div class="card shadow rounded-4 p-4">
-                <h1 class="fs-4 bg-white text-center m-4 p-2 rounded-4 shadow">
-                    Factores de riesgo del {{ selectedValue }}
-                </h1>
-                <div class="card-body p-4">
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                        <div v-for="(factor, index) in riskFactorsList" :key="index" class="col">
-                            <div class="card h-100 shadow border-0 rounded-4 bg-white">
-                                <div class="card-body d-flex align-items-center justify-content-center text-center">
-                                    <div>
-                                        <i class="bi bi-exclamation-circle-fill text-info"></i>
-                                    </div>
-                                    <div class="m-3">
-                                        <p class="card-text">{{ factor }}</p>
+            <div class="card shadow rounded-4">
+                <div class="accordion" id="accordionRiskFactors">
+                    <div class="card">
+                        <div class="card-header p-3" id="headingRiskFactors">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link w-100 text-left fs-4 bg-white rounded-4 shadow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRiskFactors" aria-expanded="true" aria-controls="collapseRiskFactors">
+                                    Factores de riesgo del {{ selectedValue }}
+                                    <i class="bi bi-exclamation-circle-fill fs-4 ms-2"></i>
+                                </button>
+                            </h2>
+                        </div>
+                
+                        <div id="collapseRiskFactors" class="collapse show" aria-labelledby="headingRiskFactors" data-bs-parent="#accordionRiskFactors">
+                            <div class="card-body p-4">
+                                <div class="row row-cols-1 row-cols-md-2 g-4">
+                                    <div v-for="(factor, index) in riskFactorsList" :key="index" class="col">
+                                        <div class="card h-100 shadow border-0 rounded-4 bg-white">
+                                            <div class="card-body d-flex align-items-center justify-content-center text-center">
+                                                <div>
+                                                    <i class="bi bi-exclamation-circle-fill text-info"></i>
+                                                </div>
+                                                <div class="m-3">
+                                                    <p class="card-text">{{ factor }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-info shadow rounded-4 text-white fs-5 my-4 mx-auto" @click="resetValueImput">
-                    Cerrar<i class="bi bi-x-circle fs-5 ms-1"></i>
-                </button>
             </div>
-        </div>
-    </main>
+        </div>        
 
-    <main v-if="activeSection === 'upload'" class="container">
-        <div class="container my-5">
-
+        <div class="container mb-5">
             <div class="card shadow rounded-4">
-                <div class="card-body text-center p-4">
-                    <div class="form">
-                        <label for="fileInput" class="form-label d-block">
-                            <h1 class="fs-4 bg-white m-4 p-2 rounded-4 shadow">
-                                Cargar base de datos<i class="bi bi-filetype-xlsx fs-4 ms-2"></i>
-                            </h1>
-                        </label>
-                        <input type="file" class="form-control d-inline-block my-4 mx-auto" id="fileInput" @change="onFileChange" accept=".xlsx">
+                <div class="accordion" id="accordionFileUpload">
+                    <div class="card">
+                        <div class="card-header p-3" id="headingFileUpload">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link w-100 text-left fs-4 bg-white rounded-4 shadow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFileUpload" aria-expanded="true" aria-controls="collapseFileUpload">
+                                    Cargar base de datos<i class="bi bi-filetype-xlsx fs-4 ms-2"></i>
+                                </button>
+                            </h2>
+                        </div>
+                
+                        <div id="collapseFileUpload" class="collapse show" aria-labelledby="headingFileUpload" data-bs-parent="#accordionFileUpload">
+                            <div class="card-body text-center p-4">
+                                <div class="form">
+                                    <label for="fileInput" class="form-label d-block">
+                                    </label>
+                                    <input type="file" class="form-control d-inline-block my-4 mx-auto" id="fileInput" @change="onFileChange" accept=".xlsx">
+                                </div>
+                                <button class="btn btn-info shadow rounded-4 text-white fs-5 m-4" @click="saveFile">
+                                    Guardar<div v-if="loading" class="spinner-border spinner-border-sm text-white ms-1" role="status"></div>
+                                    <i v-else class="bi bi-file-earmark-arrow-up fs-5 ms-1"></i>
+                                </button>
+                                <button class="btn btn-info shadow rounded-4 text-white fs-5 m-4" @click="cancelUpload">
+                                    Cancelar<i class="bi bi-file-earmark-excel fs-5 ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-info shadow rounded-4 text-white fs-5 m-4" @click="saveFile">
-                        Guardar<div v-if="loading" class="spinner-border spinner-border-sm text-white ms-1" role="status"></div>
-                        <i v-else class="bi bi-file-earmark-arrow-up fs-5 ms-1"></i>
-                    </button>
-                    <button class="btn btn-info shadow rounded-4 text-white fs-5 m-4" @click="cancelUpload">
-                        Cancelar<i class="bi bi-file-earmark-excel fs-5 ms-1"></i>
-                    </button>
                 </div>
             </div>
-        </div>
+        </div>        
 
         <div v-if="errors.length" class="container mb-5">
             <div class="card shadow rounded-4">
-                <div class="card-body p-4 d-flex justify-content-center flex-column">
-                    <h1 class="fs-4 bg-white m-4 p-2 rounded-4 shadow text-center">
-                        Errores de validación<i class="bi bi-exclamation-triangle fs-4 ms-2"></i>
-                    </h1>
-                    <div class="card-body fs-6 bg-white m-4 p-0 rounded-4 shadow">
-                        <ul class="error-message">
-                            <li v-for="(error, index) in errors" :key="index" class="p-2">{{ error }}</li>
-                        </ul>
+                <div class="accordion" id="accordionErrors">
+                    <div class="card">
+                        <div class="card-header" id="headingErrors">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link w-100 text-left fs-4 bg-white rounded-4 shadow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseErrors" aria-expanded="true" aria-controls="collapseErrors">
+                                    Errores de validación<i class="bi bi-exclamation-triangle fs-4 ms-2"></i>
+                                </button>
+                            </h2>
+                        </div>
+                
+                        <div id="collapseErrors" class="collapse show" aria-labelledby="headingErrors" data-bs-parent="#accordionErrors">
+                            <div class="card-body fs-6 bg-white m-4 p-0 rounded-4 shadow">
+                                <ul class="error-message">
+                                    <li v-for="(error, index) in errors" :key="index" class="p-2">{{ error }}</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-info shadow rounded-4 text-white fs-5 my-4 mx-auto" @click="resetErrors">
-                        Cerrar<i class="bi bi-x-circle fs-5 ms-1"></i>
-                    </button>
                 </div>
             </div>
         </div>
+        
     </main>
 
     <footer>
@@ -141,6 +161,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/ajv@6.12.6/dist/ajv.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="app.js"></script>
 
 </body>

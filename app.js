@@ -3,7 +3,6 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            activeSection: 'home',
             errors: [],
             alert: {
                 message: '',
@@ -259,8 +258,8 @@ createApp({
         },
 
         async saveFile() {
-            this.resetValueImput();
-            this.resetErrors();
+            this.selectedValue = null;
+            this.errors = [];
             if (!this.selectedFile) {
                 this.showWarning('Por favor, seleccione un archivo.');
                 return;
@@ -399,7 +398,6 @@ createApp({
 
         calculateRisk(data) {
             const sumTotal = Object.values(data).reduce((sum, val) => sum + (+val || 0), 0);
-            console.log(data);
             return 1 / (1 + Math.exp(-sumTotal));
         },
         
@@ -472,7 +470,7 @@ createApp({
                     : 0;
         
                 const cigarrillosDiarios = item['¿Cuántos cigarrillos fumas o fumabas al día, en promedio?'] !== undefined
-                    ? ((200 / (item['¿Durante cuántos años fumaste o has fumado?'] * item['¿Cuántos cigarrillos fumas o fumabas al día, en promedio?'])) - 0.4021541613) * (-1.822606)
+                    ? ((10 / item['¿Durante cuántos años fumaste o has fumado?']) - 0.4021541613) * (-1.822606)
                     : 0;
         
                 const añosDejadoFumar = item['¿Hace cuántos años dejaste de fumar?'] !== undefined
@@ -542,14 +540,6 @@ createApp({
 
         showSuccess(message) {
             this.triggerAlert('success', message);
-        },
-
-        resetValueImput() {
-            this.selectedValue = null;
-        },
-
-        resetErrors() {
-            this.errors = [];
         },
 
         resetFileInput() {
